@@ -75,7 +75,7 @@ app.post("/chat", async (req, res) => {
         });
         const imageUrl = response.data[0].url; // 画像のURLを取得。レスポンスの形式により調整が必要。
         res.json({
-          botMessage: `画像を生成しました：[こちらをクリック](${imageUrl})`,
+          botMessage: `画像を生成しました: <img width="500" src="${imageUrl}" />`,
         }); // Markdown形式でリンクを表示
       } catch (error) {
         console.error("Error generating image:", error);

@@ -21,6 +21,16 @@
     </div>
 
     <script>
+      document
+        .getElementById("user-input")
+        .addEventListener("keydown", function (event) {
+          // IMEの変換中でなく、Enterキーが押された時にsendMessage関数を実行
+          if (!event.isComposing && event.key === "Enter") {
+            event.preventDefault(); // Enterキーのデフォルトの動作（例: フォームの送信）を防ぐ
+            sendMessage();
+          }
+        });
+
       async function sendMessage() {
         const userInput = document.getElementById("user-input").value;
 

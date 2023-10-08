@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>レシピのビジュアル化チャット</title>
+  </head>
+  <body>
+    <h2>レシピのビジュアル化</h2>
+
+    <div id="chat-box">
+      <div id="messages">
+        <!-- チャットのメッセージがここに表示されます -->
+      </div>
+    </div>
+
+    <div id="input-box">
+      <input type="text" id="user-input" placeholder="メッセージを入力..." />
+      <button onclick="sendMessage()">送信</button>
+    </div>
+
+    <script>
+      async function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+
+        // ここでメッセージをサーバーに送信
+        const response = await fetch("/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: "user123", // 一時的なユーザーID
+            message: userInput,
+          }),
+        });
+
+        const responseData = await response.json();
+        const botMessage = responseData.botMessage;
+
+        const messagesDiv = document.getElementById("messages");
+        messagesDiv.innerHTML += `<div>User: ${userInput}</div>`;
+        messagesDiv.innerHTML += `<div>Bot: ${botMessage}</div>`;
+
+        document.getElementById("user-input").value = "";
+      }
+    </script>
+  </body>
+</html>
